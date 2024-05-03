@@ -29,7 +29,7 @@ GROUP BY s.store_id;
 
 -- 4.  Determine the average running time of films for each category.
 
-SELECT c.name AS category, AVG(f.length) AS average_running_t
+SELECT c.name AS category, ROUND(AVG(f.length), 2) AS average_running_t
 FROM category AS c
 JOIN film_category AS fc ON c.category_id = fc.category_id
 JOIN film AS f ON fc.film_id = f.film_id
