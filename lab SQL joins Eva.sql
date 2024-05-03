@@ -64,9 +64,7 @@ SELECT CASE
 FROM film f
 JOIN inventory i ON f.film_id = i.film_id
 JOIN store s ON i.store_id = s.store_id
-LEFT JOIN rental r ON i.inventory_id = r.inventory_id
-WHERE f.title = 'Academy Dinosaur' AND s.store_id = 1
-AND r.return_date IS NULL;
+WHERE f.title = 'Academy Dinosaur' AND s.store_id = 1;
 
 -- 8. Provide a list of all distinct film titles, along with their availability status in the inventory. 
 -- Include a column indicating whether each title is 'Available' or 'NOT available.' 
