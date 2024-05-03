@@ -3,7 +3,6 @@ USE sakila;
 Select * 
 FROM film_category;
 
-
 -- 1. List the number of films per category.category
 
 SELECT name AS category, COUNT(DISTINCT film_id) AS number_films
@@ -65,7 +64,9 @@ SELECT CASE
 FROM film f
 JOIN inventory i ON f.film_id = i.film_id
 JOIN store s ON i.store_id = s.store_id
-WHERE f.title = 'Academy Dinosaur' AND s.store_id = 1;
+LEFT JOIN rental r ON i.inventory_id = r.inventory_id
+WHERE f.title = 'Academy Dinosaur' AND s.store_id = 1
+AND r.return_date IS NULL;
 
 -- 8. Provide a list of all distinct film titles, along with their availability status in the inventory. 
 -- Include a column indicating whether each title is 'Available' or 'NOT available.' 
@@ -73,8 +74,8 @@ WHERE f.title = 'Academy Dinosaur' AND s.store_id = 1;
 
 SELECT DISTINCT f.title,
        CASE 
-           WHEN COUNT(i.inventory_id) > 0 THEN 'Available'
-           ELSE 'NOT Available'
+           WHEN COUNT(i.inventory_id) > 0 THEN "Available"
+           ELSE "NOT Available"
        END AS availability_status
 FROM film f
 LEFT JOIN inventory i ON f.film_id = i.film_id
